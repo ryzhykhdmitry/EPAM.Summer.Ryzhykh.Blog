@@ -19,8 +19,9 @@ namespace Blog.Controllers
 
         public ActionResult Index()
         {
-            var user = service.GetById(2).Login;
-            ViewBag.Login = user;
+            var user = service.GetOneByPredicate(u => u.Login == "Second");
+            //var user = service.GetById(2).Login;
+            ViewBag.Login = user.Login;
             return View();
         }
     }

@@ -9,44 +9,89 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Linq.Expressions;
+using System.Data.Entity;
 
 namespace DAL.Concrete
 {
     public class RoleRepository : IRoleRepository
     {
-        public void Create(DalRole e)
-        {
-            throw new NotImplementedException();
-        }
+        private readonly DbContext context;
 
-        public void Delete(DalRole e)
+        public RoleRepository(DbContext uow)
         {
-            throw new NotImplementedException();
+            if (uow == null)
+            {
+                throw new ArgumentNullException("entitiesContext");
+            }
+            this.context = uow;
         }
 
         public IEnumerable<DalRole> GetAll()
         {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<DalRole> GetAllByPredicate(Expression<Func<DalRole, bool>> f)
-        {
-            throw new NotImplementedException();
+            return context.Set<Role>().Select(role => new DalRole()
+            {
+                Id = role.Id,
+                Name = role.Name
+            });
         }
 
         public DalRole GetById(int key)
         {
-            throw new NotImplementedException();
+            var ormrole = context.Set<Role>().FirstOrDefault(role => role.Id == key);
+            return new DalRole()
+            {
+                Id = ormrole.Id,
+                Name = ormrole.Name
+            };
         }
 
         public DalRole GetOneByPredicate(Expression<Func<DalRole, bool>> f)
         {
-            throw new NotImplementedException();
+            return GetAllByPredicate(f).FirstOrDefault();
         }
 
-        public void Update(DalRole entity)
+        public IEnumerable<DalRole> GetAllByPredicate(Expression<Func<DalRole, bool>> f)
         {
-            throw new NotImplementedException();
+            var visitor = new HelperExpressionVisitor<DalRole, Role>(Expression.Parameter(typeof(Role), f.Parameters[0].Name));
+            var exp2 = Expression.Lambda<Func<Role, bool>>(visitor.Visit(f.Body), visitor.NewParameterExp);
+            return context.Set<Role>()
+                .Where(exp2)
+                .Select(r => new DalRole()
+                {
+                    Id = r.Id,
+                    Name = r.Name
+                });
+        }
+
+        public void Create(DalRole e)
+        {
+            var role = new Role()
+            {
+                Name = e.Name
+            };
+            context.Set<Role>().Add(role);
+        }
+
+        public void Delete(DalRole e)
+        {
+            var role = new Role()
+            {
+                Id = e.Id,
+                Name = e.Name
+            };
+            context.Set<Role>().Attach(role);
+            context.Set<Role>().Remove(role);
+        }
+
+        public void Update(DalRole e)
+        {
+            var role = new Role()
+            {
+                Id = e.Id,
+                Name = e.Name
+
+            };
+            context.Entry(role).State = EntityState.Modified;
         }
     }
 }

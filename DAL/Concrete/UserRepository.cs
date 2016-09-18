@@ -29,7 +29,11 @@ namespace DAL.Concrete
 
         public void Create(DalUser e)
         {
+            //var user = e.GetORMEntity();
             context.Set<User>().Add(e.GetORMEntity());
+            //context.Set<User>().Add(user);
+            //user.Roles.Add(context.Set<Role>().Where(r => r.Name == "user").FirstOrDefault());
+            //context.SaveChanges();
         }
 
         public void Delete(DalUser e)

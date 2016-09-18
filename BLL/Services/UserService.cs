@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using System.Linq.Expressions;
 using System.IO;
 using Helpers;
+using System.Web.Helpers;
 
 namespace BLL.Services
 {
@@ -29,7 +30,8 @@ namespace BLL.Services
 
         public void Create(UserEntity user)
         {
-            user.Roles = new List<RoleEntity> { roleRepository.GetById(3).GetBllEntity() };
+            user.Password = Crypto.HashPassword(user.Password);
+            user.Roles = new List<RoleEntity> { roleRepository.GetById(2).GetBllEntity() };
             userRepository.Create(user.GetDalEntity());
             if (!(Directory.Exists(user.Login)))
             {
@@ -42,6 +44,10 @@ namespace BLL.Services
 
                 }
             }
+            //if (ReferenceEquals(user, null))
+            //    throw new ArgumentNullException();
+
+            //userRepository.Create(user.GetDalEntity());
             uow.Commit();
         }
 
