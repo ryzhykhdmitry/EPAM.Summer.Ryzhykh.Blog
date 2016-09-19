@@ -19,9 +19,10 @@ namespace Blog.Controllers
         }
 
         [AllowAnonymous]
+        [HttpGet]
         public ActionResult Login()
-        {
-            return View();
+        {          
+                return View();               
         }
 
 

@@ -14,9 +14,19 @@ namespace BLL.Services
 {
     public class ArticleService : IArticleService
     {
+        private readonly IUnitOfWork uow;
+        private readonly IArticleRepository articleRepository;
+
+        public ArticleService(IUnitOfWork unitOfWork, IArticleRepository articleRepository)
+        {
+            this.uow = unitOfWork;
+            this.articleRepository = articleRepository;
+        }
+
         public void Create(ArticleEntity entity)
         {
-            throw new NotImplementedException();
+            articleRepository.Create(entity.GetDalEntity());
+            uow.Commit();
         }
 
         public void Delete(ArticleEntity entity)
@@ -36,7 +46,7 @@ namespace BLL.Services
 
         public IEnumerable<ArticleEntity> GetAllEntities()
         {
-            throw new NotImplementedException();
+            return articleRepository.GetAll().Select(a => a.GetBllEntity());
         }
 
         public ArticleEntity GetById(int id)

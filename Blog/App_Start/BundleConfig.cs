@@ -9,7 +9,12 @@ namespace Blog
         public static void RegisterBundles(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
-                        "~/Scripts/jquery-{version}.js"));
+                        "~/Scripts/jquery-{version}.js",
+                        "~/Scripts/jquery/jquery.unobtrusive-ajax.min.js",
+                        "~/Scripts/jquery/jquery.validate.min.js",
+                        "~/Scripts/jquery/jquery.validate.unobtrusive.min.js",
+                        "~/Scripts/modernizr-2.6.2.js"
+                        ));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));
@@ -18,6 +23,9 @@ namespace Blog
             // ready for production, use the build tool at http://modernizr.com to pick only the tests you need.
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
                         "~/Scripts/modernizr-*"));
+
+            bundles.Add(new ScriptBundle("~/bundles/blogscript").Include(
+                        "~/Scripts/blog.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.js",

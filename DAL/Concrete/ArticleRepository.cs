@@ -8,14 +8,26 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Linq.Expressions;
+using System.Data.Entity;
 
 namespace DAL.Concrete
 {
     public class ArticleRepository : IArticleRepository
     {
+        private readonly DbContext context;
+
+        public ArticleRepository(DbContext dbContext)
+        {
+            if (dbContext == null)
+            {
+                throw new ArgumentNullException("entitiesContex");
+            }
+            this.context = dbContext;
+        }
+
         public void Create(DalArticle e)
         {
-            throw new NotImplementedException();
+            context.Set<Article>().Add(e.GetORMEntity());
         }
 
         public void Delete(DalArticle e)
@@ -25,7 +37,8 @@ namespace DAL.Concrete
 
         public IEnumerable<DalArticle> GetAll()
         {
-            throw new NotImplementedException();
+            var article = context.Set<Article>().Include(u => u.Comments).Include(u => u.Tags).ToList();
+            return article.Select(u => u.GetDalEntity());
         }
 
         public IEnumerable<DalArticle> GetAllByPredicate(Expression<Func<DalArticle, bool>> f)

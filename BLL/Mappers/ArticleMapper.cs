@@ -43,8 +43,8 @@ namespace BLL.Mappers
                 PublicationDate = bllEntity.PublicationDate,
                 AuthorId = bllEntity.AuthorId,
                 CountLikes = bllEntity.CountLikes,
-                Comments = bllEntity.Comments.Select(r => r.GetDalEntity()).ToList(),
-                Tags = bllEntity.Tags.Select(r => r.GetDalEntity()).ToList()
+                //Comments = bllEntity.Comments.Select(r => r.GetDalEntity()).ToList(),
+                //Tags = bllEntity.Tags.Select(r => r.GetDalEntity()).ToList()
             };
         }
     }
