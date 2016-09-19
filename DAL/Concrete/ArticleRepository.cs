@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Linq.Expressions;
 using System.Data.Entity;
+using Helpers;
 
 namespace DAL.Concrete
 {
@@ -43,7 +44,10 @@ namespace DAL.Concrete
 
         public IEnumerable<DalArticle> GetAllByPredicate(Expression<Func<DalArticle, bool>> f)
         {
-            throw new NotImplementedException();
+            var visitor = new HelperExpressionVisitor<DalArticle, Article>(Expression.Parameter(typeof(Article), f.Parameters[0].Name));
+            var exp2 = Expression.Lambda<Func<Article, bool>>(visitor.Visit(f.Body), visitor.NewParameterExp);
+            var x = context.Set<Article>().Where(exp2).ToList();
+            return x.Select(u => u.GetDalEntity());
         }
 
         public DalArticle GetById(int key)
@@ -53,7 +57,7 @@ namespace DAL.Concrete
 
         public DalArticle GetOneByPredicate(Expression<Func<DalArticle, bool>> f)
         {
-            throw new NotImplementedException();
+            return GetAllByPredicate(f).FirstOrDefault();
         }
 
         public void Update(DalArticle entity)

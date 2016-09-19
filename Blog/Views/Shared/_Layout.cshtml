@@ -17,7 +17,10 @@
             @*</div>
             <div class="col-md-9">*@
               @*  @Html.Partial("_FileMenu") *@
-                <div class="row main" id="main">                        
+                <div class="row main" id="main"> 
+                    @*<div class="col-lg-offset-4 col-lg-6">
+                    @Html.Action("ShowArticle", "Article")      
+                    </div>*@                 
                     @RenderBody()    
                 </div>
             @*</div>

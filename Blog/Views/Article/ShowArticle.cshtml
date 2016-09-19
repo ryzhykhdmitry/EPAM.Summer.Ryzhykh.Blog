@@ -1,0 +1,18 @@
+﻿@model Blog.Models.ArticleViewModel.ArticleViewModel
+<div id="article" class="preview">
+    <div id="title">
+        <h2>@Html.ActionLink(@Model.Title, "ShowArticle", new { controller = "Article", articleId = @Model.Id })</h2>
+
+        <div id="info">
+            <span id="date">@Model.PublicationDate</span>
+            <span id="user">
+                <img src="/Content/images/icon_user_gray.png" />
+                @*@Html.ActionLink(@Model.Blogger.Login, "ViewArticlesOfBlogger", new { controller = "Article", bloggerId = @Model.BloggerId }, new { @title = "Блог пользователя" })*@
+            </span>
+        </div>
+    </div>
+
+    <div id="content">@Model.Text</div>
+
+</div>
+<div id="separate">***</div>

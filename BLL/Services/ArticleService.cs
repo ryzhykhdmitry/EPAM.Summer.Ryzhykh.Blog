@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Linq.Expressions;
+using Helpers;
 
 namespace BLL.Services
 {
@@ -54,9 +55,11 @@ namespace BLL.Services
             throw new NotImplementedException();
         }
 
-        public ArticleEntity GetOneByPredicate(Expression<Func<ArticleEntity, bool>> predicates)
+        public ArticleEntity GetOneByPredicate(Expression<Func<ArticleEntity, bool>> f)
         {
-            throw new NotImplementedException();
+            var visitor = new HelperExpressionVisitor<ArticleEntity, DalArticle>(Expression.Parameter(typeof(DalArticle), f.Parameters[0].Name));
+            var exp2 = Expression.Lambda<Func<DalArticle, bool>>(visitor.Visit(f.Body), visitor.NewParameterExp);
+            return articleRepository.GetOneByPredicate(exp2).GetBllEntity();
         }
     }
 }

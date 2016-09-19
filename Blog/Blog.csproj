@@ -144,11 +144,14 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\PageHelper.cs" />
     <Compile Include="Infrastructure\Mappers\ArticleMapper.cs" />
+    <Compile Include="Infrastructure\Mappers\UserMapper.cs" />
     <Compile Include="Infrastructure\NinjectDependencyResolver.cs" />
     <Compile Include="Models\AccountViewModel\LoginViewModel.cs" />
     <Compile Include="Models\AccountViewModel\RegisterViewModel.cs" />
     <Compile Include="Models\ArticleViewModel\ArticleViewModel.cs" />
+    <Compile Include="Models\PageInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\CustomMembershipProvider.cs" />
     <Compile Include="Providers\CustomRoleProvider.cs" />
@@ -207,6 +210,8 @@
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Scripts\jquery.validate.unobtrusive.bootstrap.min.js.map" />
     <Content Include="Views\Article\CreateArticle.cshtml" />
+    <Content Include="Views\Article\ShowArticles.cshtml" />
+    <Content Include="Views\Article\ShowArticle.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

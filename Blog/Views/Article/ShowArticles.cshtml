@@ -1,0 +1,10 @@
+﻿@using Blog.Helpers
+@using Blog.Models
+
+@foreach (var item in Model)
+{
+    @Html.Action("ShowArticle", "Article", new { articleId = item.Id })
+}
+<div id="paginator">
+    @Html.PageLinks((PageInfo)ViewBag.PageInfo, x => Url.Action("Index", new { controller = "Home", page = x }))
+</div>
