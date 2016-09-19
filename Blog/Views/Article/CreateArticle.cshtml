@@ -25,6 +25,7 @@
                     <div class="form-group">
                         @Html.LabelFor(m => m.Text)
                         @Html.TextAreaFor(m => m.Text, new { @class = "form-control", @placeholder = "Awesome article" })
+                        @Html.ValidationMessageFor(m => m.Text)
                     </div>
                     <div class="form-group">
                         @Html.LabelFor(m => m.Tags)
@@ -40,3 +41,8 @@
         </div>
      </div>
  </div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @*<script src="~/Scripts/jquery.validate.bootstrap.js"></script>
+        <script src="~/Scripts/jquery.validate.unobtrusive.bootstrap.min.js"></script>*@
+}

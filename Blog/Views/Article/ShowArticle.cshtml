@@ -1,5 +1,5 @@
 ﻿@model Blog.Models.ArticleViewModel.ArticleViewModel
-<div id="article" class="preview">
+<div id="article">
     <div id="title">
         <h2>@Html.ActionLink(@Model.Title, "ShowArticle", new { controller = "Article", articleId = @Model.Id })</h2>
 
@@ -13,6 +13,6 @@
     </div>
 
     <div id="content">@Model.Text</div>
-
+    <div id="separate">***</div>
 </div>
-<div id="separate">***</div>
+@*<div id="separate">***</div>*@

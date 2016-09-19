@@ -22,7 +22,7 @@ namespace Blog.Controllers
             this.articleService = articleService;
             this.userService = userService;
         }
-        // GET: Article
+        
         public ActionResult Index()
         {
             return View();
@@ -36,11 +36,10 @@ namespace Blog.Controllers
 
         [HttpPost]
         public ActionResult CreateArticle(ArticleViewModel model)
-        {
-            //MembershipUser user = ((CustomMembershipProvider)Membership.Provider).GetUser(HttpContext.User.Identity.Name, true);
+        {            
             var name = HttpContext.User.Identity.Name;
             var id = userService.GetOneByPredicate(n => n.Login == name).Id;
-            model.AuthorId = Convert.ToInt32(id);/*(HttpContext.Profile.GetPropertyValue("Id"));*/
+            model.AuthorId = Convert.ToInt32(id);
             model.CountLikes = 0;
             model.PublicationDate = DateTime.Now;
             articleService.Create(model.GetBllEntity());
@@ -71,7 +70,7 @@ namespace Blog.Controllers
 
         [HttpGet]
         [AllowAnonymous]
-        public ActionResult ShowArticle(int articleId) //= 1)
+        public ActionResult ShowArticle(int articleId) 
         {            
             var article = articleService.GetOneByPredicate(u => u.Id == articleId).GetMvcEntity();
             

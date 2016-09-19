@@ -30,14 +30,12 @@ namespace Blog.Controllers
         public ActionResult Login(LoginViewModel model)
         {
             if (ModelState.IsValid)
-            {
-                //var user = 
+            {                
                 if (Membership.ValidateUser(model.UserName, model.Password))
                 {
                     FormsAuthentication.SetAuthCookie(model.UserName, true);
 
                     return RedirectToAction("Index", "Home");
-                    //return RedirectToAction("Register", "Account");
                 }
                 else
                 {
