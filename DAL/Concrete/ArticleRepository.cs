@@ -33,7 +33,12 @@ namespace DAL.Concrete
 
         public void Delete(DalArticle e)
         {
-            throw new NotImplementedException();
+            var article = context.Set<Article>().Where(a => a.Id == e.Id).FirstOrDefault();
+            if (article != null)
+            {
+                context.Set<Article>().Remove(e.GetORMEntity());            
+            }
+            context.SaveChanges();
         }
 
         public IEnumerable<DalArticle> GetAll()

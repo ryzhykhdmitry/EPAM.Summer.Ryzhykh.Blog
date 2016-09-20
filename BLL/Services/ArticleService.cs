@@ -32,7 +32,8 @@ namespace BLL.Services
 
         public void Delete(ArticleEntity entity)
         {
-            throw new NotImplementedException();
+            articleRepository.Delete(entity.GetDalEntity());
+            uow.Commit();
         }
 
         public void Edit(ArticleEntity entity)
