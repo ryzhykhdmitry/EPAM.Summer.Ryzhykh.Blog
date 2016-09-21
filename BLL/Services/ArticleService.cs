@@ -38,7 +38,8 @@ namespace BLL.Services
 
         public void Edit(ArticleEntity entity)
         {
-            throw new NotImplementedException();
+            articleRepository.Update(entity.GetDalEntity());
+            uow.Commit();
         }
 
         public IEnumerable<ArticleEntity> GetAllByPredicate(Expression<Func<ArticleEntity, bool>> predicates)

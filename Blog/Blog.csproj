@@ -210,6 +210,7 @@
     <Content Include="Views\Article\CreateArticle.cshtml" />
     <Content Include="Views\Article\ShowArticles.cshtml" />
     <Content Include="Views\Article\ShowArticle.cshtml" />
+    <Content Include="Views\Article\UpdateArticle.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

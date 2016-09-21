@@ -35,6 +35,7 @@ namespace Blog.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public ActionResult CreateArticle(ArticleViewModel model)
         {            
             var name = HttpContext.User.Identity.Name;
@@ -43,7 +44,31 @@ namespace Blog.Controllers
             model.CountLikes = 0;
             model.PublicationDate = DateTime.Now;
             articleService.Create(model.GetBllEntity());
-            return View();
+            return RedirectToAction("Index", "Home");
+        }
+
+        [HttpGet]
+        public ActionResult DeleteArticle(int articleId)
+        {
+            articleService.Delete(articleService.GetOneByPredicate(a => a.Id == articleId));
+            return RedirectToAction("Index", "Home");
+        }
+
+        [HttpGet]
+        public ActionResult UpdateArticle(int articleId)
+        {
+            var article = articleService.GetOneByPredicate(a => a.Id == articleId).
+                    GetMvcEntity();
+            return View(article);
+        }
+
+        [HttpPost]
+        [Authorize]
+        public ActionResult UpdateArticle(ArticleViewModel model)
+        {
+            model.PublicationDate = DateTime.Now;
+            articleService.Edit(model.GetBllEntity());
+            return RedirectToAction("Index", "Home");
         }
 
         [HttpGet]

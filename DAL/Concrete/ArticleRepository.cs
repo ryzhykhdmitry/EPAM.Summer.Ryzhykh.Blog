@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Linq.Expressions;
 using System.Data.Entity;
 using Helpers;
+using System.Data.Entity.Migrations;
 
 namespace DAL.Concrete
 {
@@ -36,7 +37,7 @@ namespace DAL.Concrete
             var article = context.Set<Article>().Where(a => a.Id == e.Id).FirstOrDefault();
             if (article != null)
             {
-                context.Set<Article>().Remove(e.GetORMEntity());            
+                context.Set<Article>().Remove(article);            
             }
             context.SaveChanges();
         }
@@ -67,7 +68,15 @@ namespace DAL.Concrete
 
         public void Update(DalArticle entity)
         {
-            throw new NotImplementedException();
+            //context.Set<Article>().AddOrUpdate(entity.GetORMEntity());  
+            var article = context.Set<Article>().Where(a => a.Id == entity.Id).FirstOrDefault();
+            if (article != null)
+            {
+                //context.Set<Article>().AddOrUpdate();
+                article = entity.GetORMEntity();
+                context.Entry(article).State = EntityState.Modified;
+                context.SaveChanges();
+            }
         }
     }
 }

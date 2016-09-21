@@ -2,16 +2,17 @@
 <div id="article">
     <div id="title">
         <h2>@Html.ActionLink(@Model.Title, "ShowArticle", new { controller = "Article", articleId = @Model.Id })</h2>
-
+        
         <div id="info">
             <span id="date">@Model.PublicationDate</span>
             <span id="user">
                 <img src="/Content/images/icon_user_gray.png" />
                 @*@Html.ActionLink(@Model.Blogger.Login, "ViewArticlesOfBlogger", new { controller = "Article", bloggerId = @Model.BloggerId }, new { @title = "Блог пользователя" })*@
             </span>
+            <span class="pull-right"><img src="/Content/images/icon_delete.png" /> @Html.ActionLink("Удалить", "DeleteArticle", new { controller = "Article", articleId = @Model.Id })</span>
         </div>
     </div>
-
+    
     <div id="content">@Model.Text</div>
     <div id="separate">***</div>
 </div>
