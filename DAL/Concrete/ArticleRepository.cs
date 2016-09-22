@@ -70,13 +70,19 @@ namespace DAL.Concrete
         {
             //context.Set<Article>().AddOrUpdate(entity.GetORMEntity());  
             var article = context.Set<Article>().Where(a => a.Id == entity.Id).FirstOrDefault();
-            if (article != null)
-            {
-                //context.Set<Article>().AddOrUpdate();
-                article = entity.GetORMEntity();
-                context.Entry(article).State = EntityState.Modified;
+            context.Set<Article>().Attach(article);
+            //if (article != null)
+            //{
+            //context.Set<Article>().AddOrUpdate();
+            if (entity.Title != null) article.Title = entity.Title;
+            if (entity.Text != null) article.Text = entity.Text;
+            if (entity.PublicationDate != null) article.PublicationDate = entity.PublicationDate;
+
+             //article = entity.GetORMEntity();
+             //   context.Entry(article).State = EntityState.Modified;
                 context.SaveChanges();
-            }
+            //}
+            
         }
     }
 }

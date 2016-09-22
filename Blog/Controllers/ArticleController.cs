@@ -29,13 +29,14 @@ namespace Blog.Controllers
         }
 
         [AllowAnonymous]
+        [Authorize(Roles = "user")]
         public ActionResult CreateArticle()
         {
             return View();
         }
 
         [HttpPost]
-        [Authorize]
+        [Authorize(Roles = "user")]
         public ActionResult CreateArticle(ArticleViewModel model)
         {            
             var name = HttpContext.User.Identity.Name;

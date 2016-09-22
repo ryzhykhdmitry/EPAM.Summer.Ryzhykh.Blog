@@ -1,7 +1,8 @@
 ﻿@model Blog.Models.ArticleViewModel.ArticleViewModel
 <div id="article">
     <div id="title">
-        <h2>@Html.ActionLink(@Model.Title, "ShowArticle", new { controller = "Article", articleId = @Model.Id })</h2>
+       
+         <h2>@Html.ActionLink(@Model.Title, "ShowArticle", new { controller = "Article", articleId = @Model.Id })</h2>
         
         <div id="info">
             <span id="date">@Model.PublicationDate</span>
@@ -9,7 +10,14 @@
                 <img src="/Content/images/icon_user_gray.png" />
                 @*@Html.ActionLink(@Model.Blogger.Login, "ViewArticlesOfBlogger", new { controller = "Article", bloggerId = @Model.BloggerId }, new { @title = "Блог пользователя" })*@
             </span>
-            <span class="pull-right"><img src="/Content/images/icon_delete.png" /> @Html.ActionLink("Удалить", "DeleteArticle", new { controller = "Article", articleId = @Model.Id })</span>
+            @*HttpContext.Current.User.Identity.IsAuthenticated ||*@
+            @if (HttpContext.Current.User.IsInRole("admin"))
+            {
+            <span class="pull-right"><img src="/Content/images/icon_edit.png" /> @Html.ActionLink("Edit", "UpdateArticle", new { controller = "Article", articleId = @Model.Id })
+                <img src="/Content/images/icon_delete.png" /> @Html.ActionLink("Delete", "DeleteArticle", new { controller = "Article", articleId = @Model.Id })
+            </span>
+            }
+                       
         </div>
     </div>
     

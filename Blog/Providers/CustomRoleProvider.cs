@@ -22,24 +22,40 @@ namespace Blog.Providers
 
         public override string[] GetRolesForUser(string username)
         {
-            string[] roles = new string[] { };
+            List<string> roles = new List<string>();
+            //string[] roles = new string[] { };
             var user = UserService.GetOneByPredicate(u => u.Login == username);
-            if (user == null) return roles;
+            if (user == null) return roles.ToArray();
             var userRole = user.Roles;
             if (userRole != null)
             {
-                roles = new string[] { userRole.Select(r => r.Name).ToString()};
-            } 
-            return roles;
+                //roles = new string[] { userRole.Select(r => r.Name).ToString() };
+                foreach (var role in userRole)
+                {
+                    roles.Add(role.Name);
+                }
+            }
+            return roles.ToArray();
         }
 
         public override bool IsUserInRole(string username, string rolename)
         {
-            var user = UserService.GetOneByPredicate(u => u.Login == username);
-            if (user == null) return false;
-            var role = user.Roles.Select(r => r.Name == rolename);
-            if (role != null) { return true; }
-            return false;
+            //var user = UserService.GetOneByPredicate(u => u.Login == username.ToString());
+            //if (user == null) { return false; }
+            //var role = user.Roles.Select(r => r.Name == rolename);
+            //if (role != null) { return true; }
+            //return false;
+            //bool outputResult = false;
+            //UserEntity user = UserService.GetOneByPredicate(u => u.Login == username);
+            //if (user != null)
+            //{
+            //    RoleEntity role = RoleService.GetOneByPredicate(r => r.Id == user.Id);
+            //    if (role != null && role.Name == rolename)
+            //        outputResult = true;
+            //}
+            //return outputResult;
+            //return true;
+            throw new NotImplementedException();
         }
 
         #region Stabs

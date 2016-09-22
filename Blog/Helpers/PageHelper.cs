@@ -18,15 +18,17 @@ namespace Blog.Helpers
             {
                 for (int i = 1; i <= pageInfo.TotalPages; i++)
                 {
-                    TagBuilder tag = new TagBuilder("a");
+                    TagBuilder tag2 = new TagBuilder("li");                                       
+                    TagBuilder tag = new TagBuilder("a");                                       
                     tag.MergeAttribute("href", pageUrl(i));
                     tag.InnerHtml = i.ToString();
 
                     if (i == pageInfo.PageNumber)
                     {
-                        tag.AddCssClass("now");
+                        tag2.AddCssClass("active");
                     }
-                    result.Append(tag.ToString());
+                    tag2.InnerHtml = tag.ToString();
+                    result.Append(tag2.ToString());
                 }
             }
 

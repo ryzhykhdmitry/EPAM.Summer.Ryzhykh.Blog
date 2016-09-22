@@ -18,6 +18,7 @@
                 @Html.ValidationSummary(true, "", new { @class = "text-error" })
 
                 <fieldset>
+                        @Html.HiddenFor(m => m.Id)
                     <div class="form-group">
                         @Html.LabelFor(m => m.Title)
                         @Html.TextBoxFor(m => m.Title, new { @class = "form-control", @placeholder = "Enter title" })
@@ -34,7 +35,7 @@
                     </div>
                     <div class="row">
                         <div class="col-md-3 col-lg-6">
-                            <input type="submit" id="createArticle" value="Publish" class="btn btn-success btn-lg" />
+                            <input type="submit" id="updateArticle" value="Publish" class="btn btn-success btn-lg" />
                         </div>
                     </div>
                 </fieldset>
