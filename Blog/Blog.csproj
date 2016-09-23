@@ -150,11 +150,13 @@
     </Compile>
     <Compile Include="Helpers\PageHelper.cs" />
     <Compile Include="Infrastructure\Mappers\ArticleMapper.cs" />
+    <Compile Include="Infrastructure\Mappers\CommentMapper.cs" />
     <Compile Include="Infrastructure\Mappers\UserMapper.cs" />
     <Compile Include="Infrastructure\NinjectDependencyResolver.cs" />
     <Compile Include="Models\AccountViewModel\LoginViewModel.cs" />
     <Compile Include="Models\AccountViewModel\RegisterViewModel.cs" />
     <Compile Include="Models\ArticleViewModel\ArticleViewModel.cs" />
+    <Compile Include="Models\CommentViewModel\CommentViewModel.cs" />
     <Compile Include="Models\PageInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\CustomMembershipProvider.cs" />

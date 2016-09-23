@@ -1,4 +1,6 @@
 ﻿using BLL.Interface.Services;
+using Blog.Models.CommentViewModel;
+using Blog.Infrastructure.Mappers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,6 +23,28 @@ namespace Blog.Controllers
         public ActionResult Index()
         {
             return View();
+        }
+
+        [HttpGet]
+        [ChildActionOnly]
+        public ActionResult AddComment()
+        {
+            return PartialView("_CreateComment");
+        }
+
+        [HttpPost]
+        public ActionResult AddComment(CommentViewModel model, int articleId)
+        {
+            model.PublicationDate = DateTime.Now;
+            model.AuthorId = Convert.ToInt32(HttpContext.Profile.GetPropertyValue("Id"));
+            model.ArticleId = articleId;
+            commentService.Create(model.GetBllEntity());
+            return GetComments(model.ArticleId);
+        }
+
+        private ActionResult GetComments(int articleId)
+        {
+            throw new NotImplementedException();
         }
     }
 }
