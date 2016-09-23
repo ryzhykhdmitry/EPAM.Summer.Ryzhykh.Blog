@@ -29,14 +29,14 @@ namespace Blog.Controllers
         }
 
         [AllowAnonymous]
-        [Authorize(Roles = "user")]
+        [Authorize]
         public ActionResult CreateArticle()
         {
             return View();
         }
 
         [HttpPost]
-        [Authorize(Roles = "user")]
+        [Authorize]
         public ActionResult CreateArticle(ArticleViewModel model)
         {            
             var name = HttpContext.User.Identity.Name;
@@ -97,10 +97,47 @@ namespace Blog.Controllers
         [HttpGet]
         [AllowAnonymous]
         public ActionResult ShowArticle(int articleId) 
-        {            
+        {           
             var article = articleService.GetOneByPredicate(u => u.Id == articleId).GetMvcEntity();
-            
+            article.User = userService.GetById(article.AuthorId).GetMvcEntity();
             return PartialView(article);
+        }
+
+        public ActionResult ShowPages(IEnumerable<ArticleViewModel> models, int page = 1)
+        {
+            int pageSize = 3;
+            IEnumerable<ArticleViewModel> articleModels = models.Skip((page - 1) * pageSize).Take(pageSize);
+            PageInfo pageInfo = new PageInfo { PageNumber = page, PageSize = pageSize, TotalItems = models.Count() };
+            @ViewBag.PageInfo = pageInfo;
+            return PartialView("ShowArticles", articleModels);
+        }
+
+        [HttpGet]
+        [AllowAnonymous]
+        public ActionResult ViewArticle(int articleId)
+        {
+            var article = articleService.GetOneByPredicate(u => u.Id == articleId).GetMvcEntity();            
+            article.CountLikes+=1;
+            articleService.Edit(article.GetBllEntity());
+            article.User = userService.GetById(article.AuthorId).GetMvcEntity();
+            return View(article);
+        }
+
+        [HttpGet]
+        [AllowAnonymous]
+        public ActionResult ViewBloggerArticles(int bloggerId)
+        {
+            var user = userService.GetById(bloggerId);
+            var articles = articleService.GetAllByPredicate(u => u.AuthorId == bloggerId).
+                    OrderByDescending(a => a.PublicationDate).Select(a => a.GetMvcEntity());
+            List<ArticleViewModel> models = new List<ArticleViewModel>();
+            foreach (var article in articles)
+            {
+                //article.User = userService.GetById(article.User.UserId).GetMvcEntity();
+                models.Add(article);
+            }
+            @ViewBag.BloggerLogin = user.Login;
+            return View("BloggerArticles", models);
         }
 
     }

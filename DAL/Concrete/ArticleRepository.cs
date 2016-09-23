@@ -77,6 +77,8 @@ namespace DAL.Concrete
             if (entity.Title != null) article.Title = entity.Title;
             if (entity.Text != null) article.Text = entity.Text;
             if (entity.PublicationDate != null) article.PublicationDate = entity.PublicationDate;
+            if (entity.CountLikes != null) article.CountLikes = entity.CountLikes;
+
 
              //article = entity.GetORMEntity();
              //   context.Entry(article).State = EntityState.Modified;

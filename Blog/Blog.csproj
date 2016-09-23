@@ -143,6 +143,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ArticleController.cs" />
+    <Compile Include="Controllers\CommentController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -157,6 +158,7 @@
     <Compile Include="Models\PageInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\CustomMembershipProvider.cs" />
+    <Compile Include="Providers\CustomProfileProvider.cs" />
     <Compile Include="Providers\CustomRoleProvider.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -215,8 +217,12 @@
     <Content Include="Views\Article\ShowArticles.cshtml" />
     <Content Include="Views\Article\ShowArticle.cshtml" />
     <Content Include="Views\Article\UpdateArticle.cshtml" />
+    <Content Include="Views\Article\ViewArticle.cshtml" />
+    <Content Include="Views\Article\BloggerArticles.cshtml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Views\Comment\" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />

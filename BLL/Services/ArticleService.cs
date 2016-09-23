@@ -42,9 +42,12 @@ namespace BLL.Services
             uow.Commit();
         }
 
-        public IEnumerable<ArticleEntity> GetAllByPredicate(Expression<Func<ArticleEntity, bool>> predicates)
+        public IEnumerable<ArticleEntity> GetAllByPredicate(Expression<Func<ArticleEntity, bool>> f)
         {
-            throw new NotImplementedException();
+            var visitor = new HelperExpressionVisitor<ArticleEntity, DalArticle>(Expression.Parameter(typeof(DalArticle), f.Parameters[0].Name));
+            var exp2 = Expression.Lambda<Func<DalArticle, bool>>(visitor.Visit(f.Body), visitor.NewParameterExp);
+            //ToList()
+            return articleRepository.GetAllByPredicate(exp2).Select(article => article.GetBllEntity()).ToList();
         }
 
         public IEnumerable<ArticleEntity> GetAllEntities()

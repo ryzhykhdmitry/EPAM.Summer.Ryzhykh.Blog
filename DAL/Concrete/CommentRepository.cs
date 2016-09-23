@@ -8,19 +8,37 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Linq.Expressions;
+using System.Data.Entity;
+using Helpers;
 
 namespace DAL.Concrete
 {
     public class CommentRepository : ICommentRepository
     {
+        private readonly DbContext context;
+
+        public CommentRepository(DbContext dbContext)
+        {
+            if (dbContext == null)
+            {
+                throw new ArgumentNullException("entitiesContex");
+            }
+            this.context = dbContext;
+        }
+
         public void Create(DalComment e)
         {
-            throw new NotImplementedException();
+            context.Set<Comment>().Add(e.GetORMEntity());
         }
 
         public void Delete(DalComment e)
         {
-            throw new NotImplementedException();
+            var comment = context.Set<Comment>().Where(a => a.Id == e.Id).FirstOrDefault();
+            if (comment != null)
+            {
+                context.Set<Comment>().Remove(comment);            
+            }
+            context.SaveChanges();
         }
 
         public IEnumerable<DalComment> GetAll()
@@ -30,7 +48,10 @@ namespace DAL.Concrete
 
         public IEnumerable<DalComment> GetAllByPredicate(Expression<Func<DalComment, bool>> f)
         {
-            throw new NotImplementedException();
+            var visitor = new HelperExpressionVisitor<DalComment, Comment>(Expression.Parameter(typeof(Comment), f.Parameters[0].Name));
+            var exp2 = Expression.Lambda<Func<Comment, bool>>(visitor.Visit(f.Body), visitor.NewParameterExp);
+            var x = context.Set<Comment>().Where(exp2).ToList();
+            return x.Select(u => u.GetDalEntity());
         }
 
         public DalComment GetById(int key)

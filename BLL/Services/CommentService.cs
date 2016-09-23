@@ -9,19 +9,31 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Linq.Expressions;
+using Helpers;
 
 namespace BLL.Services
 {
     public class CommentService : ICommentService
     {
+        private readonly IUnitOfWork uow;
+        private readonly ICommentRepository commentRepository;
+
+        public CommentService(IUnitOfWork unitOfWork, ICommentRepository commentRepository)
+        {
+            this.uow = unitOfWork;
+            this.commentRepository = commentRepository;
+        }
+
         public void Create(CommentEntity entity)
         {
-            throw new NotImplementedException();
+            commentRepository.Create(entity.GetDalEntity());
+            uow.Commit();
         }
 
         public void Delete(CommentEntity entity)
         {
-            throw new NotImplementedException();
+            commentRepository.Delete(entity.GetDalEntity());
+            uow.Commit();
         }
 
         public void Edit(CommentEntity entity)
@@ -29,9 +41,12 @@ namespace BLL.Services
             throw new NotImplementedException();
         }
 
-        public IEnumerable<CommentEntity> GetAllByPredicate(Expression<Func<CommentEntity, bool>> predicates)
+        public IEnumerable<CommentEntity> GetAllByPredicate(Expression<Func<CommentEntity, bool>> f)
         {
-            throw new NotImplementedException();
+            var visitor = new HelperExpressionVisitor<CommentEntity, DalComment>(Expression.Parameter(typeof(DalComment), f.Parameters[0].Name));
+            var exp2 = Expression.Lambda<Func<DalComment, bool>>(visitor.Visit(f.Body), visitor.NewParameterExp);
+            //ToList()
+            return commentRepository.GetAllByPredicate(exp2).Select(comment => comment.GetBllEntity()).ToList();
         }
 
         public IEnumerable<CommentEntity> GetAllEntities()
