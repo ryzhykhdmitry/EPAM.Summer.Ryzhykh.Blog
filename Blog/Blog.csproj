@@ -221,10 +221,10 @@
     <Content Include="Views\Article\UpdateArticle.cshtml" />
     <Content Include="Views\Article\ViewArticle.cshtml" />
     <Content Include="Views\Article\BloggerArticles.cshtml" />
+    <Content Include="Views\Comment\_CreateComment.cshtml" />
+    <Content Include="Views\Comment\_CommentsOfArticle.cshtml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Views\Comment\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />

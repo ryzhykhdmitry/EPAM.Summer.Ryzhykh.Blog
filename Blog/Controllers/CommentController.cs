@@ -42,9 +42,31 @@ namespace Blog.Controllers
             return GetComments(model.ArticleId);
         }
 
-        private ActionResult GetComments(int articleId)
+        [HttpGet]
+        public ActionResult GetComments(int articleId)
         {
-            throw new NotImplementedException();
+            var comments = commentService.GetAllByPredicate(u => u.ArticleId == articleId).Select(c => c.GetMvcEntity());
+            return PartialView("_CommentsOfArticle", GetCommentModel(comments));
+        }
+
+        [HttpPost]
+        public ActionResult DeleteComment(int articleId, int commentId)
+        {
+            commentService.Delete(commentService.GetAllByPredicate(u => u.Id == commentId).FirstOrDefault());
+            var comments = commentService.GetAllByPredicate(u => u.ArticleId == articleId).Select(c => c.GetMvcEntity());
+            return PartialView("_CommentsOfArticle", GetCommentModel(comments));
+        }
+
+        private IEnumerable<CommentViewModel> GetCommentModel(IEnumerable<CommentViewModel> comments)
+        {
+            if (comments == null) return null;
+            List<CommentViewModel> models = new List<CommentViewModel>();
+            foreach (var comment in comments)
+            {
+                comment.Author = userService.GetOneByPredicate(u => u.Id == comment.AuthorId).GetMvcEntity();
+                models.Add(comment);
+            }
+            return models;
         }
     }
 }

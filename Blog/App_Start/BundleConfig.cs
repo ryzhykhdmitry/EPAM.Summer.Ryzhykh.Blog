@@ -10,6 +10,7 @@ namespace Blog
         {
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Scripts/jquery-{version}.js",
+                        "~/Scripts/jquery.unobtrusive-ajax.js",
                         "~/Scripts/jquery/jquery.unobtrusive-ajax.min.js",
                         "~/Scripts/jquery/jquery.validate.min.js",
                         "~/Scripts/jquery/jquery.validate.unobtrusive.min.js",
