@@ -1,0 +1,45 @@
+﻿@model IEnumerable<Blog.Models.ArticleViewModel.ArticleViewModel>
+
+@{
+    ViewBag.Title = "Search results";
+}
+
+@*<div class="col-md-offset-3 col-md-6 col-lg-offset-3 col-lg-6 text-center">
+    <h3>@Model.Count() results for:</h3><h4 class="text-info">@ViewBag.QuerySearch</h4>    
+</div>*@
+
+@if (Model.Count() != 0)
+{
+    <div class="col-md-offset-3 col-md-6 col-lg-offset-3 col-lg-6 text-center">
+        <h3>@Model.Count() results for:</h3><h4 class="text-info">"@ViewBag.QuerySearch"</h4>
+    </div>
+    <div id="search_result">
+        @foreach (var article in Model)
+        {
+            <div id="article" class="col-md-offset-3 col-md-6 col-lg-offset-3 col-lg-6">
+                <div id="title">
+                    <h2>@Html.ActionLink(@article.Title, "ViewArticle", new { controller = "Article", articleId = @article.Id })</h2>
+                    <div id="info">
+                        <span id="date">@article.PublicationDate</span>
+                        <span id="user"><img src="/Content/images/icon_user_gray.png" /> @Html.ActionLink(@article.User.UserName, "ViewBloggerArticles", new { controller = "Article", bloggerId = @article.AuthorId })</span>
+                    </div>
+                </div>
+                <div id="content">@article.Text</div>
+            </div>
+
+                            
+        }
+    </div>
+}
+else
+{
+    <div class="col-md-offset-3 col-md-6 col-lg-offset-3 col-lg-6 text-center">
+        @if (String.IsNullOrEmpty(ViewBag.QuerySearch))
+        {<h2>Sorry, no results found</h2>}
+        else
+        {
+         <h2>Sorry, no results found for: "@ViewBag.QuerySearch"</h2>}
+        }
+        <img src="~/Content/Images/no_results.png" />
+    </div>
+}

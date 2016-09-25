@@ -226,10 +226,9 @@
     <Content Include="Views\Comment\_CreateComment.cshtml" />
     <Content Include="Views\Comment\_CommentsOfArticle.cshtml" />
     <Content Include="Views\Shared\_Search.cshtml" />
+    <Content Include="Views\Search\Search.cshtml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Views\Search\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />

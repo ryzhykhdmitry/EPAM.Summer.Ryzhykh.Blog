@@ -1,5 +1,6 @@
-﻿<nav class="header navbar navbar-default navbar-inverse" role="navigation">
-    <div class="container-fluid">
+﻿@*<div id="right_content">*@
+<nav class="header navbar navbar-default navbar-inverse" role="navigation">
+    <div @*id="top_menu"*@ class="container-fluid">
         <div class="navbar-header">
             <a class="navbar-brand" href="/Home/Index">
                 <img src="~/Content/Images/blog.png" />
@@ -14,8 +15,16 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             @Html.Partial("_LoginMenu")
             @Html.Action("Index", "Search")
+            @*<div id="live_search"> </div>*@
             @*@Html.Partial("_UserSearchForm")*@    
          </div>       
 </div>
     
 </nav>
+
+@*</div>*@
+<div class="col-md-4 col col-lg-4" id="right_content">
+    <div id="top_menu">
+        <div id="live_search"> </div>
+    </div>
+</div>

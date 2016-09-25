@@ -28,7 +28,7 @@
 
                     for (i = 0; i < Math.min(10, json.length) ; i++) {
                         item = json[i];
-                        html += '<a href="/Article/ViewArticle?articleId=' + item.Id + '">' + item.Title + '</a>';
+                        html += '<p><a href="/Article/ViewArticle?articleId=' + item.Id + '">' + item.Title + '</a></p>';
                     }
 
                     live_search.html(html);

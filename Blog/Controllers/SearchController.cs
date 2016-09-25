@@ -42,5 +42,27 @@ namespace Blog.Controllers
 
             return View("", list);
         }
+
+        [HttpPost]
+        public ActionResult SearchJson(SearchViewModel model)
+        {
+            var result = articleService.GetAllByPredicate(u => u.Title.Contains(model.SearchString)).
+                    Select(r => r.GetMvcEntity());
+            if (result.ToArray().Length == 0)
+            {
+                return new JsonResult()
+                {
+                    Data = new { message = "No results found" }
+                };
+               
+            }
+            return Json(result);
+        }
+
+        [HttpGet]
+        public ActionResult Search()
+        {
+            return RedirectToAction("Index", "Home");
+        }
     }
 }
