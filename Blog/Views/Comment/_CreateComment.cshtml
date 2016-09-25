@@ -1,6 +1,6 @@
 ﻿@model Blog.Models.CommentViewModel.CommentViewModel
  
-<div class="panel-body">
+<div class="col-md-9 col-lg-9 panel-body">
     @using (Ajax.BeginForm("AddComment", "Comment", new { articleId = ViewBag.ArticleId }, new AjaxOptions
     {
         HttpMethod = "Post",
@@ -19,7 +19,7 @@
                 @Html.ValidationMessageFor(model => model.Text)
             </div>
             <div class="form-group">
-                <input type="submit" class="button" value="Send" id="send_comment" />
+                <input type="submit" class="btn btn-sm" value="Send" id="send_comment" />
             </div>
 </fieldset>
     }

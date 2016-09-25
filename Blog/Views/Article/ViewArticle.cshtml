@@ -3,7 +3,7 @@
     ViewBag.Title = "Article";
 }
 
-<div class="col-md-offset-3 col-md-6 col-lg-offset-3 col-lg-6" id="article">
+<div class="col-md-offset-3 col-md-6 col-lg-offset-3 col-lg-6 article" id="article">
     <div id="title">
 
         <h2 class="text-center">@Html.ActionLink(@Model.Title, "ViewArticle", new { controller = "Article", articleId = @Model.Id })</h2>
@@ -30,7 +30,7 @@
     <div id="content">@Model.Text</div> 
     <div class="pull-right">Views @Model.CountLikes</div>  
     
-    <div id="all_comments">
+    <div class="comments-all" id="all_comments">
         @Html.Action("GetComments", new { controller = "Comment", articleId = @Model.Id })
     </div>
     @if (Request.IsAuthenticated)

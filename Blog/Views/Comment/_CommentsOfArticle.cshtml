@@ -6,18 +6,18 @@
     foreach (var comment in Model)
     {
 
-        <div id="comment">
+        <div class="col-md-9 col-lg-9 comment" id="comment">
             <div id="top">
                 @*<span id="user"><img src="/Content/images/icon_user_gray.png" /> @Html.ActionLink(@comment.Author.UserName, "ViewArticlesOfBlogger", new { controller = "Article", bloggerId = @comment.Sender.Id }, new { @title = "Блог пользователя" })</span>*@
                 <span id="date">
                     @comment.PublicationDate
                     @if (User.IsInRole("admin") || (User.Identity.IsAuthenticated && (Convert.ToInt32(Profile.GetPropertyValue("Id")) == comment.AuthorId)))
                     {
-                        @Ajax.ActionLink("×", "DeleteComment", "Comment", new { articleId = comment.ArticleId, commentId = comment.Id }, new AjaxOptions { HttpMethod = "Post", UpdateTargetId = "all_comments" }, new { @title = "Удалить" })
+                        @Ajax.ActionLink("×", "DeleteComment", "Comment", new { articleId = comment.ArticleId, commentId = comment.Id }, new AjaxOptions { HttpMethod = "Post", UpdateTargetId = "all_comments" }, new { @title = "Delete", @class = "comment-delete"})
                     }
                 </span>
             </div>
-            @comment.Text
-        </div>
+            <div class="comment-text">@comment.Text</div>
+        </div>                
     }
 }

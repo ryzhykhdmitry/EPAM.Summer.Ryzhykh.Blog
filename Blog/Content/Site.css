@@ -22,3 +22,49 @@ select,
 textarea {
     max-width: 280px;
 }
+
+div.article {
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+    border-bottom-color: lightskyblue;
+}
+div.comment {    
+    margin-bottom: 20px;
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+    border-bottom-color: rgb(234, 234, 234);  
+}
+div.comments-all {
+    border-top-width: 1px;
+    border-top-style: solid;
+    border-top-color: lightskyblue;
+    margin-top: 20px;
+    padding-top: 20px;
+}
+div.comment-text {
+    padding: 20px;
+}
+span.comment {        
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+    border-bottom-color: lightskyblue;
+}
+
+.comment-delete {   
+    border-width: 1px;    
+    border-radius: 10px;
+    border-style: solid;
+    border-color: red;
+    color: red;
+    padding: 0px 3px;
+    margin: 0 0 0 6px;
+    font-size: 11px;
+}
+
+.comment-delete:hover {
+    text-decoration: none !important;
+    background-color: #d80404;
+    color: #fff;
+}
+
+
